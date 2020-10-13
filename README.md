@@ -1,4 +1,5 @@
 # A Community Connect project - App for Missing People Reports
+![](missingPeople_ss.png)
 
 
 # PROBLEM IDENTIFICATION
@@ -21,23 +22,4 @@ Notification Portal.
 # STATISTICS
 Each year State/UT police receive numerous reports of missing persons. Some of them return soon after their disappearance without any harm having befallen them. However, some of them might have been met with tragic end such as homicide, suicide or an accident. It is also possible that they might have been a victim of foul play such as trafficking. However, it is difficult to ascertain whether someone’s disappearance is intentional or unintentional.
 
-Year 
-Male
-Female
-Transgender
-Total
-2016
-1,16,418
-1,74,021
-             -
-2,90,439
-2017
-1,16,467
-1,88,382
-428
-3,05,267
-2018
-1,23,339
-2,23,621
-564
-3,47,524
+![](stats.png)
