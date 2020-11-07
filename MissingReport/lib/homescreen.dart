@@ -73,7 +73,6 @@ class HomeScreen extends StatelessWidget {
                   height: 50,
                 ),
                 Container(
-                  color: Colors.green,
                   height: 100,
                   width: 280,
                   alignment: Alignment.centerLeft,
