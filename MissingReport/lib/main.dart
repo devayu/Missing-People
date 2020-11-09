@@ -1,10 +1,16 @@
+import 'package:MissingReport/after_form_screen.dart';
+import 'package:MissingReport/complaint_form.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:firebase_core/firebase_core.dart';
 import './login.dart';
 import './splash.dart';
 import 'homescreen.dart';
+import 'search_missing.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 
@@ -28,8 +34,11 @@ class _MyAppState extends State<MyApp> {
           fontFamily: 'Montserrat'),
       home: SplashScreen(),
       routes: {
-        '/loginscreen': (ctx) => LoginScreen(),
+        LoginScreen.routeName: (ctx) => LoginScreen(),
         HomeScreen.routeName: (ctx) => HomeScreen(),
+        ComplaintForm.routeName: (ctx) => ComplaintForm(),
+        AfterForm.routeName: (ctx) => AfterForm(),
+        SearchMissing.routeName: (ctx) => SearchMissing(),
       },
     );
   }

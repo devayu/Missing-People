@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "421847104186",
+    "firebase_url": "https://missingreport.firebaseio.com",
+    "project_id": "missingreport",
+    "storage_bucket": "missingreport.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:421847104186:android:5a2fb3723eea96454e2083",
+        "android_client_info": {
+          "package_name": "com.example.MissingReport"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "421847104186-svoua2dhnmngmbls3hb8gsc1tromk3dp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.MissingReport",
+            "certificate_hash": "6a03d735fd4219dbb1697b68436ff8e212a222c4"
+          }
+        },
+        {
+          "client_id": "421847104186-6hlfilehrjj1ptetg52sahffaij2mhmt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBGYsHOa6u3qcCkrkBprfH4e6FlyC6lq6I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "421847104186-6hlfilehrjj1ptetg52sahffaij2mhmt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
