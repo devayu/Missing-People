@@ -84,7 +84,7 @@ class ComplaintFirestore {
       'Relationship with victim': compRelation,
       'Gender': compGender,
     });
-    users.doc(docTitle).set({
+    users.doc(docTitle).collection("Report").doc().set({
       'VName': vicFname + " " + vicLname,
       'Case ID': docTitle,
       'Date': date,

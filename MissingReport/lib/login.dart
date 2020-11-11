@@ -61,6 +61,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     borderRadius: BorderRadius.circular(10),
                     color: Colors.grey[300]),
                 child: TextFormField(
+                  obscureText: true,
                   maxLength: 6,
                   style: TextStyle(
                       color: Colors.black, fontWeight: FontWeight.bold),

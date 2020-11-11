@@ -1,6 +1,7 @@
+import 'package:MissingReport/missing_card.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:hexcolor/hexcolor.dart';
+import 'package:toast/toast.dart';
 
 class SearchMissing extends StatefulWidget {
   static const routeName = '/search';
@@ -25,17 +26,17 @@ class _SearchMissingState extends State<SearchMissing> {
     print(searchController.text);
   }
 
-  getFirebaseData() async {
-    var data =
-        await FirebaseFirestore.instance.collection('Form Details').get();
+  // getFirebaseData() async {
+  //   var data =
+  //       await FirebaseFirestore.instance.collection('Form Details').get();
 
-    setState(() {
-      allresults = data.docs;
-    });
+  //   setState(() {
+  //     allresults = data.docs;
+  //   });
 
-    searchResultList();
-  }
-
+  //   searchResultList();
+  // }
+  String docTitle;
   searchResultList() {
     var showResults = [];
 
@@ -61,6 +62,7 @@ class _SearchMissingState extends State<SearchMissing> {
     }
   }
 
+  bool progress = false;
   Widget missingPersonCardBuilder(String title, String docT) {
     return Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -77,6 +79,9 @@ class _SearchMissingState extends State<SearchMissing> {
         ]);
   }
 
+  TextEditingController caseIdController = new TextEditingController();
+  TextEditingController victimNameController = new TextEditingController();
+
   Widget build(BuildContext context) {
     return GestureDetector(
         onTap: () {
@@ -92,101 +97,83 @@ class _SearchMissingState extends State<SearchMissing> {
               ),
             ),
             child: Scaffold(
-              appBar: AppBar(
-                elevation: 0,
-                backgroundColor: Colors.transparent,
-                title: Text(
-                  'Find Missing',
-                  style: TextStyle(
-                      color: Theme.of(context).primaryColor,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: 'Montserrat',
-                      fontSize: 35),
-                ),
-                centerTitle: true,
-              ),
-              backgroundColor: Colors.transparent,
-              body: Column(
-                children: [
-                  // Container(
-                  //   padding: EdgeInsets.only(left: 20, right: 20, top: 20),
-                  //   child: Card(
-                  //     color: Colors.grey[300],
-                  //     shape: RoundedRectangleBorder(
-                  //         borderRadius: BorderRadius.circular(10)),
-                  //     child: TextField(
-                  //       controller: searchController,
-                  //       decoration: InputDecoration(
-                  //           prefixIcon: Icon(
-                  //             Icons.search,
-                  //           ),
-                  //           border: InputBorder.none),
-                  //     ),
-                  //   ),
-                  // ),
-                  SizedBox(
-                    height: 30,
+                appBar: AppBar(
+                  elevation: 0,
+                  backgroundColor: Colors.transparent,
+                  title: Text(
+                    'Find Missing',
+                    style: TextStyle(
+                        color: Theme.of(context).primaryColor,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'Montserrat',
+                        fontSize: 35),
                   ),
-                  Expanded(
-                    child: StreamBuilder(
-                      stream: FirebaseFirestore.instance
-                          .collection('Form Details')
-                          .snapshots(),
-                      builder: (context, snapshot) {
-                        if (!snapshot.hasData) {
-                          return Text('Loading Data ');
-                        }
-                        getFirebaseData();
-
-                        return ListView.builder(
-                          itemCount: resultsList.length,
-                          //snapshot.data.documents.length,
-                          itemBuilder: (context, index) {
-                            victimName
-                                .add(snapshot.data.documents[index]['VName']);
-                            return Container(
-                              padding: EdgeInsets.only(
-                                  left: 10, right: 10, bottom: 20),
-                              height: 150,
-                              child: Card(
-                                elevation: 2,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10)),
-                                color: Theme.of(context).primaryColor,
-                                child: Padding(
-                                  padding: EdgeInsets.only(left: 10, right: 10),
-                                  child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    children: [
-                                      missingPersonCardBuilder(
-                                          'CaseID: ',
-                                          snapshot.data.documents[index]
-                                              ['Case ID']),
-                                      missingPersonCardBuilder(
-                                          'Victim Name:',
-                                          snapshot.data.documents[index]
-                                              ['VName']),
-                                      missingPersonCardBuilder(
-                                          'Date of missing',
-                                          snapshot.data.documents[index]['Date']
-                                              .toString()),
-                                      missingPersonCardBuilder(
-                                          'Complainant Name:',
-                                          snapshot.data.documents[index]
-                                              ['CName']),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            );
-                          },
-                        );
-                      },
+                  centerTitle: true,
+                ),
+                backgroundColor: Colors.transparent,
+                body: Column(
+                  children: [
+                    SizedBox(
+                      height: 30,
                     ),
-                  )
-                ],
-              ),
-            )));
+                    Column(
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(left: 20, right: 20),
+                          child: Card(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10)),
+                            color: Colors.grey[300],
+                            child: TextFormField(
+                              controller: caseIdController,
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold),
+                              decoration: InputDecoration(
+                                  hintText: 'Enter Case ID',
+                                  counterText: '',
+                                  border: InputBorder.none,
+                                  contentPadding:
+                                      EdgeInsets.only(left: 20, right: 20)),
+                              onChanged: (value) {},
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        RaisedButton(
+                          color: Theme.of(context).primaryColor,
+                          onPressed: () {
+                            if (caseIdController.text.isEmpty) {
+                              Toast.show(
+                                  'Case ID or Victim name cannot be empty',
+                                  context,
+                                  duration: Toast.LENGTH_LONG);
+                            } else {
+                              setState(() {
+                                progress = true;
+                                docTitle = caseIdController.text;
+                              });
+                            }
+                          },
+                          child: Text(
+                            'Search',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 30,
+                        ),
+                        progress == true
+                            ? SingleChildScrollView(
+                                child: MissingCard(docTitle))
+                            : Container(),
+                      ],
+                    ),
+                  ],
+                ))));
   }
 }

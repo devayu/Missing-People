@@ -1,5 +1,6 @@
 import 'package:MissingReport/after_form_screen.dart';
 import 'package:MissingReport/complaint_form.dart';
+import 'package:MissingReport/missing_card.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:firebase_core/firebase_core.dart';
